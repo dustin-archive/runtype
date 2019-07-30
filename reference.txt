@@ -1,4 +1,28 @@
 
+const x = {
+  foo: [
+    { type: 'string' },
+    { type: 'number' }
+  ],
+  bar: [
+    { type: 'array', arrayTypes: ['string', 'number'] }
+  ],
+  baz: [
+    { type: 'array', arrayTypes: ['string'] },
+    { type: 'array', arrayTypes: ['number'] }
+  ]
+}
+
+any
+boolean
+never
+null
+number
+object
+string
+undefined
+void
+
 const structure = {
   object: 'object',
   never: 'never',
@@ -16,3 +40,40 @@ const structure = {
     required: 'string'
   }
 }
+
+runtype(data, {
+  interface: {
+    foo: '(string | Bar)[]'
+  },
+  references: {
+    Bar: {
+      baz: '(string | boolean)[]'
+    }
+  }
+})
+
+runtype(data, {
+  foobar: 'string',
+  foobar: 'string | number',
+  foobar: '(string | number)[]',
+  foobar: '((string | number)[] | number)[] | boolean',
+  foobar: '(({ foo: 'string' })[] | boolean',
+  foobar: {
+    foo: 'string'
+  }
+})
+
+runtype({
+  data: data.goes.here,
+  interface: {
+    foo: '(string | Bar)[]'
+  },
+  references: {
+    Bar: {
+      baz: '(string | boolean)[]'
+    }
+  }
+})
+
+type = "number" | "string" | "boolean"
+array = "(" type ")[]"

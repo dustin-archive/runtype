@@ -1,125 +1,68 @@
 
-// const isString = value => {
-//   if (typeof value === 'string') {
-//     return true
-//   }
-//   return false
-// }
-//
-// const isOptional = value => {
-//   if (value.startsWith('$')) {
-//     return true
-//   }
-//   return false
-// }
-//
-// const needsArray = value => {
-//   if (value.endsWith('[]')) {
-//     return true
-//   }
-//   return false
-// }
-//
-// const runtype = (data, structure) => {
-//   for (let key in structure) {
-//     const value = data[key] // get the value parallel to the current key
-//     const expectedType = structure[key]
-//
-//
-//
-//
-//
-//
-//     console.log(value, expectedType)
-//
-//     if (expectedType === 'string') {
-//       const result = isString(value)
-//
-//       console.log('result', result)
-//
-//       if (result === false) {
-//         return `Error! ${key} is not a string!`
-//       }
-//     }
-//   }
-//
-//   return 'All good!'
-// }
+const parse = input => {
+  const start = input.indexOf('(')
 
-// const parse = data => {
-//   for (let key in data) {
-//
-//   }
-// }
+  if (start === -1) {
+    let position = input.indexOf('|')
 
-// export default runtype
-
-// const data = {
-//   foo: 'bar',
-//   bar: ['foo', 'bar', 'baz'],
-//   baz: [1, 2, 3]
-// }
-//
-// const output = {
-//   foo: 'string | number',
-//   bar: '(string | number)[]', // string or number array
-//   baz: 'string[] | number[]' // stringArray or numberArray
-//   // $baz: 'number'
-// }
-//
-// const x = {
-//   foo: [
-//     { type: 'string' },
-//     { type: 'number' }
-//   ],
-//   bar: [
-//     { type: 'array', arrayTypes: ['string', 'number'] }
-//   ],
-//   baz: [
-//     { type: 'array', arrayTypes: ['string'] },
-//     { type: 'array', arrayTypes: ['number'] }
-//   ]
-// }
-
-const arrayGroup = /\((.+)\)\[\]/ // (foo bar baz)[] => foo bar baz
-const arrayType = /(.+)\[\]/ // string[] => string
-const splitOr = /\|/
-
-const node = data => {
-  if (arrayGroup.test(data)) {
-    return [{
-      type: 'array',
-      arrayTypes: data.match(arrayGroup)[1].split(splitOr)
-    }]
-  }
-
-  const result = []
-  const types = data.split(splitOr)
-
-  for (let i = 0; i < types.length; i++) {
-    const type = types[i]
-
-    if (arrayType.test(type)) {
-      result[result.length] = {
-        type: 'array',
-        arrayTypes: [
-          type.match(arrayType)[1]
-        ]
-      }
-
-      continue
+    if (position === -1) {
+      return { type: input } // this is done
     }
 
-    result[result.length] = {
-      type: types[i]
+    // temporary solution
+    const target = []
+    const x = input.split('|')
+    for (let i = 0; i < x.length; i++) {
+      target.push({ type: x[i] })
     }
+    return target
+
+    // let pos = 0
+    //
+    // const target = []
+    // let remaining = input
+    //
+    // while (position !== -1) {
+    //   position = remaining.indexOf('|')
+    //
+    //   target.push({
+    //     type: remaining.slice(0, position)
+    //   })
+    //
+    //   remaining = remaining.slice(position + 1)
+    // }
+    //
+    // return target
   }
 
-  return result
+  const end = input.lastIndexOf(')[]')
+
+  if (end === -1) {
+    return 'ERROR'
+  }
 }
 
-console.log(node('string'))
-console.log(node('string[]'))
-console.log(node('string|number'))
-console.log(node('(string|number)[]'))
-console.log(node('string[]|number[]'))
+console.log(parse('string'))
+console.log(parse('aa|bbcc|ddeeff'))
+// console.log(parse('string[]'))
+// console.log(parse('string|number'))
+// console.log(parse('(string|number)[]'))
+// console.log(parse('string[]|number[]'))
+
+// const middle = input.slice(start, end)
+//
+// console.log(middle)
+
+// const start = indexOf('|')
+//
+// if (start === -1) {
+//   return
+// }
+//
+// const
+
+// const target = {}
+// for (let i = 0; i < input.length; i++) {
+//
+// }
+// return target
