@@ -1,0 +1,8 @@
+{
+  "name": "runtype",
+  "version": "0.1.0",
+  "description": "A low effort alternative to Flow and TypeScript for small to medium size projects.",
+  "author": "Dustin Dowell <dustindowell2@gmail.com>",
+  "license": "ISC",
+  "main": "index.js"
+}

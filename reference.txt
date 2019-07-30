@@ -1,0 +1,18 @@
+
+const structure = {
+  object: 'object',
+  never: 'never',
+  null: 'null',
+  _undefined: 'undefined',
+  void: 'void',
+  any: 'any',
+  boolean: 'boolean',
+  number: 'number',
+  string: 'string',
+  tuple: '[string, number]',
+  stringArrayAndNumberArray: '(string | number)[]',
+  stringArrayOrNumberArray: 'string[] | number[]',
+  $optionalObject: {
+    required: 'string'
+  }
+}
