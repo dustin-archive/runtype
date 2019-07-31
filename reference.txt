@@ -1,17 +1,44 @@
 
-const x = {
+// # simple solution
+const target = []
+const arr = input.split('|')
+for (let i = 0; i < arr.length; i++) {
+  target[i] = endsWithBrackets(arr[i])
+}
+return target
+
+{
   foo: [
-    { type: 'string' },
-    { type: 'number' }
-  ],
-  bar: [
-    { type: 'array', arrayTypes: ['string', 'number'] }
-  ],
-  baz: [
-    { type: 'array', arrayTypes: ['string'] },
-    { type: 'array', arrayTypes: ['number'] }
+    type: 'array',
+    arrayTypes: [
+      {
+        type: 'string'
+      },
+      {
+        type: 'array',
+        arrayTypes: [
+          { type: 'string' },
+          { type: 'number' }
+        ]
+      }
+    ]
   ]
 }
+
+// tests
+console.log(parse('string'))
+console.log(parse('string[]'))
+console.log(parse('string[]|number[]'))
+console.log(parse('aa|bbcc|ddeeff|gghhiijj'))
+console.log(parse('aa|bbcc[]|ddeeff|gghhiijj'))
+console.log(parse('(string|number)[]'))
+console.log(parse('(string[]|number)[]'))
+console.log(
+  JSON.stringify(
+    parse('(((string|number)[]|number)[]|number)[]'),
+    null, 2
+  )
+)
 
 any
 boolean
@@ -74,6 +101,3 @@ runtype({
     }
   }
 })
-
-type = "number" | "string" | "boolean"
-array = "(" type ")[]"
